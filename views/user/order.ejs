@@ -1,0 +1,121 @@
+<% include ../partials/header.ejs %>
+<script>	
+	function numberWithCommas(x) {
+		var price =  x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		return price;
+	}
+	var oPrc = numberWithCommas(<%= product.price%>);
+</script>
+
+<div class="container mt-5">
+  <div class="pb-3">
+    <div class="">
+      <div class="row">
+        <div class="col-lg-12 p-3 bg-white rounded shadow-sm mb-3">
+
+          <!-- Shopping cart table -->
+          <div style="align-content-center">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col" class="border-0 bg-light">
+                    <div class="p-2 px-3 text-uppercase" style="font-size: 13px; text-align: center;">Product</div>
+                  </th>
+                  <th scope="col" class="border-0 bg-light">
+                    <div class="p-2 text-uppercase" style="font-size: 13px; text-align: center;">Price</div>
+                  </th>
+                  <th scope="col" class="border-0 bg-light">
+                    <div class="p-2 text-uppercase" style="font-size: 13px; text-align: center;">Quantity</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row" class="border-0">
+                    <div class="p-0" style="text-align: center;">
+						<a href="/products/<%= cart.productId %>"><img src="<%= product.image1 %>" alt="" width="70" class="img-fluid rounded shadow-sm"></a>
+                      <div class="ml-3 d-inline-block align-middle">
+                        <h6 class="mb-0 d-none d-sm-block"><a href="/products/<%= cart.productId %>" class="text-dark d-inline-block align-middle align-center"><%= product.name %></a></h6><span class="text-muted font-weight-normal font-italic d-none d-sm-block">Category: Watches</span>
+                      </div>
+                    </div>
+                  </th>
+					<td class="border-0 align-middle" style="font-size: 0.8rem; text-align: center;"><strong>Rp.  <script>document.write(oPrc)</script> /pcs</strong></td>
+                  <td class="border-0 align-middle" style="font-size: 0.8rem; text-align: center;"><strong><%=cart.quantity%></strong></td>          
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- End -->
+        </div>
+      </div>
+		
+<div class="row p-2 bg-white rounded shadow-sm d-flex justify-content-center">
+<div class="col-lg-6 col-md-8 col-sm-10">
+
+			<!-- Material form contact -->
+<div class="">
+
+<div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold text-center">Form Pemesanan </div>
+
+    <!--Card content-->
+    <div class="card-body px-lg-5 pt-0">
+
+        <!-- Form -->
+        <form name="orderForm" method="POST" class="needs-validation text-center" style="color: #757575;" action="/<%=currentUser.username%>/order/<%=cart._id%>" onsubmit="return validateForm()">
+            <!-- Name -->
+            <div class="md-form mt-3">
+                <input type="text" id="nama" class="form-control" placeholder="Nama Lengkap" name="fullName" value="<%=currentUser.fullName%>" required>
+            </div>
+            <!-- Phone Number -->
+            <div class="md-form mt-2">
+                <input type="text" id="nomer" class="form-control" placeholder="Nomor Telepon" name="phone" value="<%=currentUser.phone%>" required>
+            </div>
+            <!-- Alamat -->
+			<div class="md-form mt-2">
+                <textarea id="materialContactFormMessage" class="form-control md-textarea" rows="2" placeholder="Alamat Lengkap" name="address"><%=currentUser.address%></textarea>
+            </div>
+			<!-- Kode Pos -->
+			<div class="md-form mt-2">
+                <input type="text" id="kodepos" class="form-control" placeholder="Kode Pos" name="postCode" required>
+            </div>
+            <!--Message-->
+            <div class="md-form mt-2">
+                <textarea id="materialContactFormMessage" class="form-control md-textarea" rows="2" placeholder="Pesan Untuk Penjual: Ukuran, Varian, Warna, dll" name="message"></textarea>
+            </div>
+			<!--- PILIH KURIR  --->
+			<div class="md-form mt-3">
+    			<label for="exampleFormControlSelect1" class="d-block">Select Expedition</label>
+    			<div class="form-check d-inline">
+      			<label class="form-check-label" for="check1">
+        		<input class="d-inline" type="radio" name="kurir" class="form-check-input" value="jne"> <img class="rounded" style="width: 60px; height: 60px" src="https://lowongankerjasatu.com/wp-content/uploads/2018/02/logo-jne-terbaru.jpg">
+      			</label>
+    		</div>
+    		<div class="form-check d-inline">
+      			<label class="form-check-label" for="check2">
+        		<input class="d-inline" type="radio" name="kurir" class="form-check-input" value="jnt" required> <img class="rounded" style="width: 70px; height: 70px" src="http://4.bp.blogspot.com/-ze819qX6AFQ/XUemm5P7gWI/AAAAAAAAXoM/DwyIG3QK78AYP5_9drMOWT9V5Xp3m1-sgCK4BGAYYCw/s1600/j%2526t%2Btrack.png">
+      			</label>
+    		</div>
+    		<div class="form-check d-inline">
+      			<label class="form-check-label">
+        		<input class="d-inline" type="radio" name="kurir" class="form-check-input" value="pos"> <img class="rounded" style="width: 40px; height: 40px" src="https://upload.wikimedia.org/wikipedia/id/thumb/0/00/Pos-Indonesia.svg/260px-Pos-Indonesia.svg.png">
+      			</label>
+    		</div>
+  			</div>
+	
+			<div class="md-form mt-3">
+            	<button type="submit" class="btn btn-primary rounded-pill py-2 btn-block">Select Payment Method</button>	 
+            </div>
+        </form>
+        <!-- Form -->
+		<div class="alert alert-warning text-center" style="font-size: 0.8rem;">
+			<i class="fas fa-exclamation-triangle"></i>  Pastikan data yang anda isikan adalah benar.
+		</div>
+    </div>
+</div>
+<!-- Material form contact -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../partials/footer.ejs %>

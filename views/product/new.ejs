@@ -1,0 +1,18 @@
+<% include ../partials/header.ejs %>
+<div class="container" style="margin-top: 80px;" id="show">
+	<h1 style="text-align: center;" id="new"> Add New Product </h1>
+	<div style="margin: 25px auto; width:300px;" class="">
+		<form action="/products" method="POST">
+			<input id="productName" class="form-control mt-3" type="text" name="product[name]" placeholder="Product name">
+			<input id="productImg1" class="form-control mt-3" type="text" name="product[image1]" placeholder="Image1 url">
+			<input id="productImg2" class="form-control mt-3" type="text" name="product[image2]" placeholder="Image2 url">
+			<input id="productImg3" class="form-control mt-3" type="text" name="product[image3]" placeholder="Image3 url">
+			<input id="productPrice" class="form-control mt-3" type="text" name="product[price]" placeholder="Price">
+			<textarea id="productDescription" class="form-control mt-3" name="product[description]" placeholder="Description" rows="5" style="overflow-wrap: break-word;"></textarea>
+			<button id="tombol" class="btn btn-primary btn-block mt-3 mb-2">Submit</button>
+		</form>
+		<a href="/<%=currentUser.username%>/products"> Go back! </a>
+	</div>
+</div>
+<% include ../partials/footer.ejs %>
+							  

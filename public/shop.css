@@ -1,0 +1,101 @@
+html{
+    height: 100%;
+}
+body{
+	background-image: url("");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: lato;
+	color: rgb(255, 255, 255);   
+}
+.slide{
+		width: 100%;
+		height: auto;
+	}
+.new{
+	font-family: lato;
+}
+
+.card{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#content {
+	text-align: center;
+    margin-top: 19%;
+    margin-bottom: 12%;
+	text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+				 0px 8px 13px rgba(0,0,0,0.1),
+                 0px 18px 23px rgba(0,0,0,0.1);
+}
+#show {
+	margin-bottom: 5%;
+}
+h1 {
+	font-weight: 700;
+	font-size: 4.5em;
+}
+
+#landLine {
+	width: 500px;
+	border-top: 1px solid #f8f8f8;
+	border-bottom: 1px solid rgba(0,0,0,0.2);
+	max-width: 90%;
+}
+#main-navbar {
+    font-size: 1.3rem;
+    font-weight: 100;
+}
+#main-navbar .nav-link {
+    color: white;
+}
+#main-navbar .nav-link:hover {
+    color: rgb(255, 255, 255);
+}
+.navbar{
+    background-color: #161b1c;
+}
+.navbar.scrolled {
+    background: rgba(0, 0, 0, 0.8);
+    transition: background 750ms;
+}
+.smallpic{
+	height: 100px;
+	width: 130px;
+}
+
+.modal-notify .modal-header {
+    border-radius: 3px 3px 0 0;
+}
+.modal-notify .modal-content {
+    border-radius: 3px;
+}
+
+.footer hr{
+    width: 180px;
+	border-top: 1px solid #f8f8f8;
+	border-bottom: 1px solid rgba(0,0,0,0.2);
+	max-width: 90%;
+}
+#bigbutt{
+	background: transparent;
+	border: none;
+	color: transparent;
+	visibility: hidden;
+}
+
+#bigbutt.scrolled {
+	color: white;
+    background: #363333;
+	visibility: visible;
+    transition: background 500ms;
+}
+.testimonial{
+	max-width: 100%; height: auto;
+}
+
+#sticky-footer {
+  	flex-shrink: none;
+	background-color: rgba()
+}

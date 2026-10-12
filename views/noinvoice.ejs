@@ -1,0 +1,28 @@
+<% include partials/header.ejs %>
+
+<style>
+body { margin-top:15%;}
+.error-template {padding: 40px 15px;text-align: center;}
+.error-actions {margin-top:15px;margin-bottom:15px;}
+.error-actions .btn { margin-right:10px; }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-template">
+				<h1><i class="far fa-meh-rolling-eyes fa-3x"></i></h1>
+                <h2>
+                    You don't have any invoice for now.</h2>
+                <div class="error-details">
+                    Anda tidak memiliki tagihan apapun, klik Shop Now untuk mulai berbelanja!
+                </div>
+                <div class="error-actions">
+                    <a class="btn btn-lg btn-dark" href="/products" role="button"><i class="fas fa-shopping-basket"></i><span class="mt-5 mb-5"> Shop Now!</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include partials/footer.ejs %>

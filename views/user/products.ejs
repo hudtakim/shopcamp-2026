@@ -1,0 +1,70 @@
+<% include ../partials/header.ejs %>
+
+<script>
+	function numberWithCommas(x) {
+    	var price =  x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		return price;
+	}	
+	var prc = numberWithCommas(<%= theProduct.price %>);
+</script>
+
+<div class="container">
+		
+	<header class="jumbotron bg-warning" style="margin-top: 70px;">
+		<div class="container">
+			<h1><i class="fas fa-store"></i> <%=currentUser.username.toUpperCase()%> </h1>
+			<p> The best shopping platform in the universe.</p>
+			<a class="btn btn-primary" href="/products/new" role="button"><i class="fas fa-plus-square"></i> Add new products!</a>
+			<a class="btn btn-primary" href="/<%=currentUser.username%>/dashboard" role="button"><i class="fas fa-arrow-circle-right"></i> Go to Dashboard!</a>
+		</div>
+	</header>
+	
+	<div class="row text-center" style="display: flex; flex-wrap: wrap;">
+		<div class="col-lg-12">
+			<h3> - Your Products - </h3>
+		</div>
+
+	
+	</div>
+</div> 
+<div class="container">
+	<div class="row">
+		<div class="col-md-3 ">
+		     <div class="list-group ">
+              <a href="#" class="list-group-item list-group-item-action active">Dashboard</a>
+              <a href="#" class="list-group-item list-group-item-action">User Management</a>
+              <a href="#" class="list-group-item list-group-item-action">Used</a>
+              <a href="#" class="list-group-item list-group-item-action">Enquiry</a>
+              <a href="#" class="list-group-item list-group-item-action">Dealer</a>
+              <a href="#" class="list-group-item list-group-item-action">Media</a>
+              <a href="#" class="list-group-item list-group-item-action">Post</a>
+              <a href="#" class="list-group-item list-group-item-action">Category</a>
+              <a href="#" class="list-group-item list-group-item-action">New</a>
+              <a href="#" class="list-group-item list-group-item-action">Comments</a>
+              <a href="#" class="list-group-item list-group-item-action">Appearance</a>
+              <a href="#" class="list-group-item list-group-item-action">Reports</a>
+              <a href="#" class="list-group-item list-group-item-action">Settings</a>              
+            </div> 
+		</div>
+		<div class="col-lg-9 d-flex">
+		<div class="row">
+		   <% theProduct.forEach(function(product){ %>
+		<div class="col-lg-3 justify-content-center mt-4" style="width: 750px; max-height: 270px">
+			<figure class="card card-sm card-product bg-warning">
+				<span class="badge-new"> % Promo </span>
+				<div class="img-wrap"> 
+					<a href="/<%=currentUser.username%>/products/<%= product._id %>"><img id="kartuProduk" src="<%= product.image1 %>" style="width: 180px; height:200px;"></a>
+				</div>
+				<figcaption class="info-wrap text-center ">
+					<h6 class="title text-truncate m-0 p-0"><a style="font-size:0.7rem; color:black;" href="/admin/products/<%= product._id %>"><%= product.name %></a></h6>
+					<h6 class="title text-truncate mt-1 p-0">Rp. <script>document.write(numberWithCommas(<%= product.price %>))</script></h6>
+				</figcaption>
+			</figure> <!-- card // -->
+	    </div>
+	<%	}); %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<% include ../partials/footer.ejs %>

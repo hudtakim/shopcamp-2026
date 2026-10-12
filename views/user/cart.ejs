@@ -1,0 +1,76 @@
+<% include ../partials/header.ejs %>
+
+<div class="container mt-5">
+  <div class="pb-3">
+    <div class="">
+      <div class="row">
+        <div class="col-lg-12 p-3 bg-white rounded shadow-sm mt-5 mb-3">
+
+          <!-- Shopping cart table -->
+          <div style="align-content-center">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col" class="border-0 bg-light">
+                    <div class="p-2 px-3 text-uppercase" style="font-size: 13px; text-align: center;">Product</div>
+                  </th>
+                  <th scope="col" class="border-0 bg-light">
+                    <div class="p-2 text-uppercase" style="font-size: 13px; text-align: center;">Price</div>
+                  </th>
+                  <th scope="col" class="border-0 bg-light">
+                    <div class="p-2 text-uppercase" style="font-size: 13px; text-align: center;">Quantity</div>
+                  </th>
+				  <th scope="col" class="border-0 bg-light">
+                    <div class="p-2 text-uppercase" style="font-size: 13px; text-align: center;">Purchase</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+				  
+			<div class="row text-center mt-3 mb-3" style="display: flex; flex-wrap: wrap;">
+				<div class="col-lg-12">
+					<h3> - Shopping Cart - </h3>
+				</div>
+			</div>
+			<!-- -------------------LOGIC BEGIN ------------------------- -->
+			<% theCart.forEach(function(cart){ %>
+                <tr>
+                  <th scope="row" class="border-0">
+                    <div class="p-0" style="text-align: center;">
+						<form action="/delete/cart/<%=cart._id%>?_method=DELETE" method="POST" class="d-none d-inline">
+							<button id="tombolDelete" class="btn btn-danger" style="height: 100px"><i class="fas fa-trash-alt"></i></button>	
+						</form>
+						<a href="/products/<%= cart.productId %>"><img style="width: 100px; height: 100px;" src="<%= cart.thumbnail %>" alt="" class="img-fluid rounded shadow-sm"></a>
+                      <div class="ml-3 d-inline-block align-middle">
+                        <h6 class="mb-0 d-none d-sm-block"><a href="/products/<%= cart.productId %>" class="text-dark d-inline-block align-middle align-center"><%= cart.itemName %></a></h6><span class="text-muted font-weight-normal font-italic d-none d-sm-block">Category: Watches</span>
+                      </div>
+                    </div>
+                  </th>
+					<td class="border-0 align-middle" style="font-size: 0.8rem; text-align: center;"><strong>Rp. <%=cart.price%>/pcs</strong></td>
+				<form action="/<%=currentUser.username%>/order/<%=cart._id%>?_method=PUT" method="POST">
+                  <td class="border-0 align-middle" style="font-size: 0.8rem; text-align: center;">
+					  <input id="qty" type="number" name="quantity" value="<%=cart.quantity%>" style="width: 40px;">
+				  </td>       
+				  <td class="border-0 align-middle" style="font-size: 0.8rem; text-align: center;">
+					  <button type="submit" id="tombol" class="btn btn-primary mt-2"><i class="fas fa-shopping-bag fa-2x"></i></button>
+				  </td>
+				</form>
+                </tr>
+		<%	}); %>
+				<!-- -----------------------------LOGIC END ---------------------------->
+              </tbody>
+            </table>
+          </div>
+          <!-- End -->
+        </div>
+      </div>
+		
+<div class="row bg-white rounded shadow-sm d-flex justify-content-center">
+	<div class="col-lg-6 col-md-8 col-sm-10">
+	</div>
+</div>
+</div>
+</div>
+</div>
+
+<% include ../partials/footer.ejs %>

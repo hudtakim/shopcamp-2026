@@ -1,0 +1,18 @@
+<% include ../partials/header.ejs %>
+<div class="container" style="margin-top: 80px;" id="show">
+	<h1 style="text-align: center;" id="new"> Edit Product </h1>
+	<div style="margin: 25px auto; width:300px;" class="">
+		<form action="/admin/products/<%=theProduct._id%>?_method=PUT" method="POST">
+			<input id="productName" class="form-control mt-3" type="text" name="name" value="<%= theProduct.name %>">
+			<input id="productImg1" class="form-control mt-3" type="text" name="image1" value="<%= theProduct.image1 %>">
+			<input id="productImg2" class="form-control mt-3" type="text" name="image2" value="<%= theProduct.image2 %>">
+			<input id="productImg3" class="form-control mt-3" type="text" name="image3" value="<%= theProduct.image3 %>">
+			<input id="productPrice" class="form-control mt-3" type="text" name="price" value="<%= theProduct.price %>">
+			<textarea id="productDescription" class="form-control mt-3" name="description" placeholder="Description" rows="5" style="overflow-wrap: break-word;"><%= theProduct.description %></textarea>
+			<button id="tombol" class="btn btn-primary btn-block mt-3 mb-2">UPDATE</button>
+		</form>
+		<a href="/<%=currentUser.username%>/products/<%= theProduct._id%>"> Go back! </a>
+	</div>
+</div>
+<% include ../partials/footer.ejs %>
+							  

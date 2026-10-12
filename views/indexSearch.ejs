@@ -1,0 +1,70 @@
+<% include partials/header.ejs %>
+
+<script>
+	function numberWithCommas(x) {
+    	var price =  x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		return price;
+	}	
+	var prc = numberWithCommas(<%= theProduct.price %>);
+</script>
+
+<div class="container">
+		
+	<header class="jumbotron bg-warning" style="margin-top: 70px;">
+		<div class="container">
+			<h1><i class="fas fa-shopping-cart d-none d-sm-inline"></i> ShopCamp.ID! </h1>
+			<p> The best shopping platform in the universe.</p>
+			<a class="btn btn-primary" href="/products/new" role="button" hidden>Add new products!</a>
+			<a class="btn btn-info" href="/orderlist/admin" role="button" hidden>Go to Order list!</a>
+			<!-- Search form -->
+			<form action="/products/search?_method=SEARCH" method="POST">
+				<div class="md-form mt-0">
+  					<input class="form-control" type="text" name="keyword" placeholder="Search Product" aria-label="Search" style="width: 30%">
+				<button hidden>Search</button>
+				</div>
+			</form>
+		</div>
+	</header>
+	
+	<div class="row text-center" style="display: flex; flex-wrap: wrap;">
+		<div class="col-lg-12">
+			<h3> All results for '<%=keyword%>' </h3>
+		</div>
+
+	<% theProduct.forEach(function(product){ %>
+		<div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 d-flex justify-content-center mt-4" style="max-width: 50vw; max-height: 50vw">
+			<figure class="card card-sm card-product bg-warning">
+				<span class="badge-new"> % Promo </span>
+				<div class="img-wrap"> 
+					<a href="/products/<%= product._id %>"><img src="<%= product.image1 %>" style="width: 180px; height:200px;"></a>
+				</div>
+				<figcaption class="info-wrap text-center ">
+					<h6 class="title text-truncate m-0 p-0"><a style="font-size:0.7rem; color:black;" href="/products/<%= product._id %>"><%= product.name %></a></h6>
+					<h6 class="title text-truncate mt-1 p-0">Rp. <script>document.write(numberWithCommas(<%= product.price %>))</script></h6>
+				</figcaption>
+			</figure> <!-- card // -->
+	    </div>
+	<%	}); %>
+	</div>	
+	<nav aria-label="Page navigation example" class="mt-4">
+	  <ul class="pagination justify-content-center">
+	   <li class="page-item">
+    	   <a class="page-link" href="#" aria-label="Previous">
+    	    <span aria-hidden="true">&laquo;</span>
+    	    <span class="sr-only">Previous</span>
+   		   </a>
+	    </li>
+		<li class="page-item"><a class="page-link" href="#">1</a></li>
+		<li class="page-item"><a class="page-link" href="#">2</a></li>
+		<li class="page-item"><a class="page-link" href="#">3</a></li>
+		<li class="page-item">
+      		<a class="page-link" href="#" aria-label="Next">
+        	<span aria-hidden="true">&raquo;</span>
+        	<span class="sr-only">Next</span>
+      		</a>
+    	</li>
+	  </ul>
+	</nav>
+</div> 
+
+<% include partials/footer.ejs %>

@@ -1,0 +1,44 @@
+<% include ../partials/header.ejs %>
+
+<script>
+	function numberWithCommas(x) {
+		var price =  x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		return price;
+	}
+	var tPrice = <%= theOrder.itemQuantity%> * <%= product.price%>;
+	var totalPrice = numberWithCommas(tPrice);
+	var subPrice = numberWithCommas(<%=product.price%>);
+	var quantity = numberWithCommas(<%=theOrder.itemQuantity%>);
+</script>
+
+<div class="row p-2 bg-white rounded shadow-sm d-flex justify-content-center" style="margin-top: 70px;">
+<div class="col-lg-5 col-md-7 col-sm-10">
+          <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold text-center"><i class="fas fa-file-invoice-dollar"></i> Shopping Summary</div>
+          <div class="p-4">
+            <p class="font-italic mb-4">Shipping and additional costs are calculated based on values you have entered.</p>
+            <ul class="list-unstyled mb-4">
+			<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted"><span class="mr-2">Order ID</span> </strong><strong>#<%= theOrder._id %></strong></li>
+				<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted"><span class="mr-2">Subtotal</span> </strong><strong>Rp. <script>document.write(subPrice+" ")</script><i class="fas fa-times"></i><script>document.write(" "+quantity)</script></strong></li>
+				<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Shipping</strong><strong><span class="mr-2">Rp. 0</span></strong></li>
+              <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong>
+                <h5 class="font-weight-bold mr-2" style="color: red;" id="prc">Rp. <script>document.write(totalPrice)</script></h5>
+              </li>
+            </ul>
+			  
+			<form action="/<%=currentUser.username%>/invoice/<%=theOrder._id%>" method="POST">
+			  <select id="singlebox" name="paymentMethod" class="browser-default custom-select custom-select-lg mb-3" required>
+ 				 <option selected disabled>Select Payment Method</option>
+ 				 <option class="pm" value="Shopay"><i class="fab fa-playstation"></i> Shopay</option>
+ 				 <option class="pm" value="Transfer"><i class="fas fa-exchange-alt"></i> Transfer Bank</option>
+  				 <option class="pm" value="Indomart"><i class="fas fa-store"></i> Indomart</option>
+			  </select>
+			  <div class="confirm mt-4">
+					<button type="submit" class="btn btn-primary rounded-pill py-2 btn-block" role="button">Purchase</button>	 
+			  </div>
+			</form>
+			  
+          </div>
+        </div>
+</div>
+
+<% include ../partials/footer.ejs %>

@@ -1,0 +1,141 @@
+<% include ../partials/header.ejs %>
+<style>
+	div.dashed {border-style: dashed;}
+</style>
+<script>
+	function numberWithCommas(x) {
+		var price =  x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		return price;
+	}
+	var tPrice = <%=transaction.bill%>;
+	var totalPrice = numberWithCommas(tPrice);
+</script>
+
+<div class="row p-2 bg-white rounded shadow-sm d-flex justify-content-center" style="margin-top: 70px;">
+<div class="col-lg-6 col-md-7 col-sm-10 m-3 p-3 dashed">
+	<div class="bg-warning rounded-pill px-4 py-3 text-uppercase font-weight-bold text-center">Order Summary</div>
+          <div class="p-4">
+        <ul class="list-unstyled mb-4">
+		<%if(currentUser.username == buyer.username){%>
+			<li class="justify-content-left py-3 border-bottom"><strong class="text-muted"><span class="mr-2">Seller</span> </strong><strong><a href="#"><i class="fas fa-store"></i> <%= seller.username %></a></strong></li>
+		<%}else{%>
+			<li class="justify-content-left py-3 border-bottom"><strong class="text-muted"><span class="mr-2">Buyer</span> </strong><strong><a href="#"><i class="fas fa-user-circle"></i> <%= buyer.username %></a></strong></li>
+		<%}%>
+			<li class="justify-content-left py-3 border-bottom"><strong class="text-muted"><span class="mr-2 d-block">Shipping Details</span> </strong>
+
+				<table border="0"> 
+				  <tr>
+					<th>Full Name</th>
+					<td>:</td>
+					<td><%=order.fullName%></td>
+				  </tr>
+				  <tr>
+					<th>Phone</th>
+					<td>:</td>
+					<td><%=order.phone%></td>
+				  </tr>
+				  <tr>
+					<th>Address</th>
+					<td>:</td>
+					<td><%=order.address%></td>
+				  </tr>
+				  <tr>
+					<th>Postal Code</th>
+					<td>:</td>
+					<td><%=order.postCode%></td>
+				  </tr>
+				  <tr>
+					<th>Message</th>
+					<td>:</td>
+					<td><%=order.message%></td>
+				  </tr>
+				  <tr>
+					<th>Expedition</th>
+					<td>:</td>
+					<td><%=order.kurir%></td>
+				  </tr>
+				</table>
+			</li>
+			<li>
+				<!-- Shopping cart table -->
+          <div style="align-content-center">
+            <table class="table mt-4">
+              <thead>
+                <tr>
+                  <th scope="col" class="border-0 bg-light">
+                    <div class="p-2 px-3 text-uppercase" style="font-size: 13px; text-align: center;">Product</div>
+                  </th>
+                  <th scope="col" class="border-0 bg-light">
+                    <div class="p-2 text-uppercase" style="font-size: 13px; text-align: center;">Price</div>
+                  </th>
+                  <th scope="col" class="border-0 bg-light">
+                    <div class="p-2 text-uppercase" style="font-size: 13px; text-align: center;">Quantity</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row" class="border-0">
+                    <div class="p-0" style="text-align: center;">
+						<a href="/products/<%=product._id%>"><img src="<%=product.image1%>" alt="" width="70" class="img-fluid rounded shadow-sm"></a>
+                      <div class="ml-3 d-inline-block align-middle">
+                        <h6 class="mb-0 d-none d-sm-block"><a href="/products/<%=product._id%>" class="text-dark d-inline-block align-middle align-center"><%=product.name%></a></h6><span class="text-muted font-weight-normal font-italic d-none d-sm-block">Category: Watches</span>
+                      </div>
+                    </div>
+                  </th>
+					<td class="border-0 align-middle" style="font-size: 0.8rem; text-align: center;"><strong>Rp.    <%=product.price%> /pcs</strong></td>
+					<td class="border-0 align-middle" style="font-size: 0.8rem; text-align: center;"><strong><%=order.itemQuantity%></strong></td> 
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- End -->
+			
+			</li>
+        </ul>
+	</div>
+</div>
+<div class="col-lg-5 col-md-7 col-sm-10 m-3 p-3 dashed">
+      <div class="bg-warning rounded-pill px-4 py-3 text-uppercase font-weight-bold text-center"><i class="fas fa-file-invoice-dollar"></i> Transaction Detail</div>
+          <div class="p-4">
+        <ul class="list-unstyled mb-4">
+			<li class="d-flex justify-content-left py-3 border-bottom"><strong class="text-muted"><span class="mr-2">Transaction ID</span> </strong><span class="mr-2 ml-auto"><strong>#<%= transaction._id %></strong></span></li>
+			<li class="d-flex justify-content-left py-3 border-bottom"><strong class="text-muted"><span class="mr-2">Current Status</span></strong><span class="mr-2 ml-auto"><strong><%= transaction.status %></strong></span></li>
+			<li class="d-flex justify-content-left py-3 border-bottom"><strong class="text-muted"><span class="mr-2">Payment Method</span> </strong><span class="mr-2 ml-auto"><strong><%= transaction.paymentMethod %></strong></span></li>
+            <li class="d-flex justify-content-left py-3 border-bottom"><strong class="text-muted">Total Price</strong>
+                <h5 class="font-weight-bold mr-2 ml-auto" style="color: red;" id="prc">Rp. <script>document.write(totalPrice)</script></h5>
+            </li>
+        </ul>
+			  
+			<!-- Form Tindakan -->
+			<form action="/<%=currentUser.username%>/transaction/<%=transaction._id%>/phase" method="POST">
+				<div class="md-form mt-3">
+			<%if(currentUser.username == seller.username){ %>
+				<%if(transaction.status == "DIBAYAR"){%>
+					<button type="submit" name="status" value="DIPROSES" class="btn btn-primary rounded-pill py-2 float-left">Proses Order</button>
+					<button type="submit" name="status" value="DITOLAK" class="btn btn-danger rounded-pill py-2 float-right">Tolak Order</button>
+				<%} else if(transaction.status == "DIPROSES"){%>
+					<div class="container" style="margin-top: 80px;" id="show">
+					<div style="margin: 25px auto; width:300px;" class="">
+						<input id="shippingId" class="form-control mt-3" type="text" name="shippingId" placeholder="Input Resi Pengiriman" required>
+					</div>
+					</div>
+					<button type="submit" name="status" value="DIKIRIM" class="btn btn-primary btn-block rounded-pill py-2 float-left">Konfirmasi Kirim Barang</button>
+				<%}%>
+			<% }else{ %>
+			  <%if(transaction.status == "DITOLAK"){%>
+			  	<a href="#" class="btn btn-primary btn-block rounded-pill py-2 btn-block">CARI BARANG LAIN</a>
+			  <%}else if(transaction.status == "SELESAI"){%>
+			  	<a href="#" class="btn btn-primary btn-block rounded-pill py-2 btn-block">BERIKAN ULASAN BARANG</a>
+			  <%}else if(transaction.status == "DIKIRIM"){%>
+				<button type="submit" name="status" value="SELESAI" class="btn btn-primary btn-block rounded-pill py-2 float-left">Konfirmasi Terima Barang</button>
+			  <%}%>		
+			<%}%>
+            	</div>
+			</form>		
+			 <!-- Form END -->
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer.ejs %>
