@@ -23,9 +23,9 @@ ShopCamp.id is a web-based marketplace prototype built with Express, EJS, MongoD
 ## Requirements
 
 - Node.js and npm
-- MongoDB running locally on its default port (`27017`)
+- A MongoDB Atlas cluster or a local MongoDB server
 
-The models currently connect to three local MongoDB databases: `user_db`, `fintech_db`, and `expedition_db`. MongoDB creates each database when application data is first written.
+The application uses three databases in the same MongoDB deployment: `user_db`, `fintech_db`, and `expedition_db`. MongoDB creates each database when application data is first written.
 
 ## Getting started
 
@@ -42,12 +42,19 @@ The models currently connect to three local MongoDB databases: `user_db`, `finte
    npm install
    ```
 
-3. Start MongoDB. On Windows, MongoDB may be running as a service; otherwise, start `mongod` with a valid data directory.
+3. Set the `MONGODB_URI` environment variable to your MongoDB Atlas connection string. For local development in PowerShell:
+
+   ```powershell
+   $env:MONGODB_URI = "mongodb+srv://<db_user>:<db_password>@<cluster-host>/?retryWrites=true&w=majority"
+   $env:SESSION_SECRET = "<a-long-random-secret>"
+   ```
+
+   Replace the placeholders with the URI and credentials from Atlas. Do not commit credentials to Git. In Atlas, add your development IP under **Network Access**; for Render, configure network access and set the same variables in the Render service's **Environment** settings.
 
 4. Start the application:
 
    ```bash
-   node app.js
+   npm start
    ```
 
 5. Open [http://localhost:3000](http://localhost:3000).
@@ -72,7 +79,7 @@ The models currently connect to three local MongoDB databases: `user_db`, `finte
 
 ## Development notes
 
-- The application listens on port `3000` in `app.js`.
+- The application uses Render's `PORT` environment variable and defaults to port `3000` locally.
 - Product images are supplied as image URLs.
-- The current MongoDB connection strings and session secret are configured directly in the source. Before deploying outside a local development environment, move secrets and database settings into environment variables and use a properly secured session configuration.
+- Set `MONGODB_URI` and `SESSION_SECRET` in the hosting provider's environment settings. Production startup fails if `SESSION_SECRET` is missing.
 - `npm test` is a placeholder and does not currently run an automated test suite.

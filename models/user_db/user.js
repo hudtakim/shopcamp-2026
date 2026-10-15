@@ -1,6 +1,5 @@
 var mongoose = require("mongoose");
-mongoose.connect('mongodb://localhost:27017/user_db', {useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.set('useFindAndModify', false);
+var userDb = require("../database").userDb;
 
 var passportLocalMongoose = require("passport-local-mongoose");
 
@@ -17,4 +16,4 @@ userSchema = new mongoose.Schema({
 
 userSchema.plugin(passportLocalMongoose); //take aur local package, add all methods here for authentication
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = userDb.model("User", userSchema);

@@ -1,6 +1,5 @@
 var mongoose = require("mongoose");
-mongoose.connect('mongodb://localhost:27017/expedition_db', {useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.set('useFindAndModify', false);
+var expeditionDb = require("../database").expeditionDb;
 
 var expeditionSchema = new mongoose.Schema({
 	expedition: {
@@ -66,4 +65,4 @@ var expeditionSchema = new mongoose.Schema({
 	}
 });
 
-module.exports = mongoose.model("Expedition", expeditionSchema);
+module.exports = expeditionDb.model("ExpeditionRecord", expeditionSchema);

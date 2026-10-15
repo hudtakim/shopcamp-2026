@@ -214,6 +214,10 @@ figure.card-product {
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
+figure.seller-product-card {
+  max-width: none;
+}
+
 figure.card-product:hover,
 .card-product:hover {
   transform: translateY(-4px);

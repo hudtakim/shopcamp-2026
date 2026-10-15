@@ -1,6 +1,5 @@
 var mongoose = require("mongoose");
-mongoose.connect('mongodb://localhost:27017/user_db', {useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.set('useFindAndModify', false);
+var userDb = require("../database").userDb;
 
 var  transactionSchema = new mongoose.Schema({	//products
 	userId 			: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
@@ -14,4 +13,4 @@ var  transactionSchema = new mongoose.Schema({	//products
 	transactionDate	: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model("Transaction", transactionSchema);
+module.exports = userDb.model("Transaction", transactionSchema);

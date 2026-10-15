@@ -1,6 +1,5 @@
 var mongoose = require("mongoose");
-mongoose.connect('mongodb://localhost:27017/fintech_db', {useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.set('useFindAndModify', false);
+var fintechDb = require("../database").fintechDb;
 
 fintechMemberSchema = new mongoose.Schema({
 	userId	:{ type: mongoose.Schema.Types.ObjectId, ref: "User"},
@@ -12,4 +11,4 @@ fintechMemberSchema = new mongoose.Schema({
 	joinDate: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model("FintechMembership", fintechMemberSchema);
+module.exports = fintechDb.model("FintechMembership", fintechMemberSchema);

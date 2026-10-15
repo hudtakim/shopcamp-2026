@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 //------------------Framework / Dependencies ---------------------
 var express 				= require("express"),
 	methodOverride 			= require("method-override"),
@@ -51,7 +53,7 @@ app.use(express.static("public")); 					//to connect to public directory
 app.use(bodyParser.urlencoded({extended: true})); 	//use body parser
 app.use(methodOverride("_method"));   				//use method override
 app.use(require("express-session")({				//use session
-	secret: "Im super human from heaven.",
+	secret: process.env.SESSION_SECRET || "local-development-secret-change-before-deploy",
 	resave: false,
 	saveUninitialized: false
 }));
@@ -114,6 +116,18 @@ app.get("*", function(req, res){		//Show Page not found
 	res.render("notfound.ejs");
 });
 
-app.listen(3000, function(){
-	console.log("Server is listening on port 3000!!!");
+var database = require("./models/database");
+var port = process.env.PORT || 3000;
+
+if (process.env.NODE_ENV === "production" && !process.env.SESSION_SECRET) {
+	throw new Error("SESSION_SECRET must be set in production.");
+}
+
+database.ready.then(function() {
+	app.listen(port, function(){
+		console.log("Server is listening on port " + port);
+	});
+}).catch(function(error) {
+	console.error("Failed to connect to MongoDB:", error);
+	process.exit(1);
 });

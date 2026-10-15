@@ -1,6 +1,5 @@
 var mongoose = require("mongoose");
-mongoose.connect('mongodb://localhost:27017/user_db', {useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.set('useFindAndModify', false);
+var userDb = require("../database").userDb;
 
 var cartSchema = new mongoose.Schema({	//products
 	userId 		: { type: mongoose.Schema.Types.ObjectId, ref: "User"},
@@ -10,4 +9,4 @@ var cartSchema = new mongoose.Schema({	//products
 	price		: Number,		
 	quantity	: Number
 });
-module.exports = mongoose.model("Cart", cartSchema);
+module.exports = userDb.model("Cart", cartSchema);

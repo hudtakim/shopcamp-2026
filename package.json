@@ -4,12 +4,14 @@
   "description": "ppl project",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "huda mustakim",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "dotenv": "^16.4.7",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
