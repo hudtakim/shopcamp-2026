@@ -1,5 +1,6 @@
-var mongoose = require("mongoose");
-var userDb = require("../database").userDb;
+var database = require("../database");
+var mongoose = database.mongoose;
+var userDb = database.userDb;
 
 var orderSchema = new mongoose.Schema({	//carts
 	userId 		: { type: mongoose.Schema.Types.ObjectId, ref: "User" },

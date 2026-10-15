@@ -1,7 +1,8 @@
-var mongoose = require("mongoose");
-var expeditionDb = require("../database").expeditionDb;
+var database = require("../database");
+var mongoose = database.mongoose;
+var expeditionDb = database.expeditionDb;
 
-expeditionSchema = new mongoose.Schema({
+var expeditionSchema = new mongoose.Schema({
 	name: String,
 	officeAddress: String,
 	phone: String,

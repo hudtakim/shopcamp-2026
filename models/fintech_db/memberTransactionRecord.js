@@ -1,5 +1,6 @@
-var mongoose = require("mongoose");
-var fintechDb = require("../database").fintechDb;
+var database = require("../database");
+var mongoose = database.mongoose;
+var fintechDb = database.fintechDb;
 
 memberTransactionRecordSchema = new mongoose.Schema({
 	id: { type: mongoose.Schema.Types.ObjectId, ref: "User"},

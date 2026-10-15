@@ -1,7 +1,8 @@
-var mongoose = require("mongoose");
-var fintechDb = require("../database").fintechDb;
+var database = require("../database");
+var mongoose = database.mongoose;
+var fintechDb = database.fintechDb;
 
-memberMasterCoinCardSchema = new mongoose.Schema({
+var memberMasterCoinCardSchema = new mongoose.Schema({
 	userId			: { type: mongoose.Schema.Types.ObjectId, ref: "User"},
 	currentSaldoCoin: Number
 });

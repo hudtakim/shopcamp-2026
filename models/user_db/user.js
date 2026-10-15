@@ -1,9 +1,10 @@
-var mongoose = require("mongoose");
-var userDb = require("../database").userDb;
+var database = require("../database");
+var mongoose = database.mongoose;
+var userDb = database.userDb;
 
 var passportLocalMongoose = require("passport-local-mongoose");
 
-userSchema = new mongoose.Schema({
+var userSchema = new mongoose.Schema({
 	fullName: String,
 	email	: String,
 	password: String,

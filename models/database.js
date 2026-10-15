@@ -6,7 +6,9 @@ if (!uri) {
 	throw new Error("MONGODB_URI must be set to your MongoDB Atlas connection string.");
 }
 
-mongoose.set("useFindAndModify", false);
+function logConnectionError(message, error) {
+	console.error(message, error.name || "MongoDBError", error.code || "");
+}
 
 function createDatabase(name) {
 	var connection = mongoose.createConnection();
@@ -16,13 +18,9 @@ function createDatabase(name) {
 	});
 
 	connection.on("error", function(error) {
-		console.error("MongoDB connection error for " + name + ":", error);
+		logConnectionError("MongoDB connection error for " + name + ":", error);
 	});
-	connection.openUri(uri, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		dbName: name
-	});
+	connection.openUri(uri, { dbName: name });
 
 	return { connection: connection, connected: connected };
 }
@@ -32,6 +30,7 @@ var fintechDb = createDatabase("fintech_db");
 var expeditionDb = createDatabase("expedition_db");
 
 module.exports = {
+	mongoose: mongoose,
 	userDb: userDb.connection,
 	fintechDb: fintechDb.connection,
 	expeditionDb: expeditionDb.connection,

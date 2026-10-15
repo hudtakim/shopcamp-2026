@@ -1,7 +1,8 @@
-var mongoose = require("mongoose");
-var fintechDb = require("../database").fintechDb;
+var database = require("../database");
+var mongoose = database.mongoose;
+var fintechDb = database.fintechDb;
 
-fintechMemberSchema = new mongoose.Schema({
+var fintechMemberSchema = new mongoose.Schema({
 	userId	:{ type: mongoose.Schema.Types.ObjectId, ref: "User"},
 	fullName: String,
 	email	: String,

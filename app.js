@@ -128,6 +128,6 @@ database.ready.then(function() {
 		console.log("Server is listening on port " + port);
 	});
 }).catch(function(error) {
-	console.error("Failed to connect to MongoDB:", error);
+	console.error("Failed to connect to MongoDB:", error.name || "MongoDBError", error.code || "");
 	process.exit(1);
 });
